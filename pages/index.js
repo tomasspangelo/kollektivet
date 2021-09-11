@@ -1,6 +1,23 @@
-import Head from "next/head";
-import Image from "next/image";
+import LoginButton from "../components/LoginButton";
+import Layout from "../components/Layout";
+import { signOut, useSession } from "next-auth/client";
+import Link from "next/link";
+import { useAtom } from "jotai";
+import { navigationAtom } from "../lib/atom";
 
 export default function Home() {
-  return "hei";
+  const [session, loading] = useSession();
+  const [value, setValue] = useAtom(navigationAtom);
+  let ongoingSession = session ? true : false;
+  let content;
+  if (!ongoingSession && !loading) {
+    content = (
+      <div className="homeContainer">
+        <LoginButton />
+      </div>
+    );
+  } else {
+    content = <p>Velkommen, {session?.user.name}!</p>;
+  }
+  return content;
 }
