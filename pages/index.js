@@ -4,8 +4,10 @@ import { signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { navigationAtom } from "../lib/atom";
+import prisma from "../lib/prisma";
 
 export default function Home() {
+  console.log(prisma);
   const [session, loading] = useSession();
   const [value, setValue] = useAtom(navigationAtom);
   let ongoingSession = session ? true : false;
