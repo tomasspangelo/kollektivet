@@ -9,3 +9,29 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Item {
+  id            Int     @default(autoincrement()) @id
+  title         String
+  content       String?
+  bought        Boolean @default(false)
+  createdBy     User?   @relation(name: "CreatedBy", fields: [createdById], references: [id])
+  createdById   Int?
+  finishedBy    User    @relation(name: "FinishedBy", fields: [finishedById], references: [id])
+  finishedById  Int
+  pricePayed    Int
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  boughtAt      DateTime
+}
+
+model User {
+  id            Int       @default(autoincrement()) @id
+  name          String?
+  email         String?   @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  createdItems  Item[]    @relation("CreatedBy")
+  finishedItems Item[]    @relation("FinishedBy")
+  @@map(name: "users")
+}
