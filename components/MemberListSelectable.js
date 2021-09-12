@@ -51,6 +51,7 @@ const MemberListSelectable = (props) => {
         {medlemmer?.map((medlem, i) => (
           <div key={i}>
             <ListItem
+              button
               selected={selectedIndex === i}
               onClick={(event) => handleListClick(event, i, medlem)}
             >

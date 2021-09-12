@@ -12,7 +12,7 @@ export default function Kollektiv() {
   const [kollektiv, setKollektiv] = useAtom(kollektivAtom);
   const { result } = useMembers();
   const router = useRouter();
-  if (!kollektiv) {
+  if (kollektiv != result) {
     setKollektiv(result);
   }
   const [open, setOpen] = React.useState(false);

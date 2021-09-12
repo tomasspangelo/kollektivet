@@ -11,6 +11,7 @@ export default function Home() {
   const [value, setValue] = useAtom(navigationAtom);
   let ongoingSession = session ? true : false;
   let content;
+  console.log(session);
   if (!ongoingSession && !loading) {
     content = (
       <div className="homeContainer">

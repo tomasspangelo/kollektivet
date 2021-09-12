@@ -19,10 +19,12 @@ model Item {
   createdById  Int?
   finishedBy   User?     @relation(name: "FinishedBy", fields: [finishedById], references: [id])
   finishedById Int?
-  pricePayed   Int
+  pricePayed   Int?
   createdAt    DateTime @default(now()) @map(name: "created_at")
   updatedAt    DateTime @updatedAt @map(name: "updated_at")
-  boughtAt     DateTime
+  boughtAt     DateTime?
+  kollektiv    Kollektiv @relation(fields:[kollektivId], references: [id])
+  kollektivId  Int
 }
 
 model Kollektiv {
@@ -32,6 +34,7 @@ model Kollektiv {
   postnummer Int
   poststed   String
   medlemmer  User[]
+  items      Item[]
 }
 
 model User {
