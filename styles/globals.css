@@ -46,3 +46,13 @@ a {
   align-self: stretch;
   flex: 1;
 }
+.photoBox {
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+.listPhoto {
+  margin-right: 16px;
+}

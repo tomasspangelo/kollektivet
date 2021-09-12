@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
   const [session, loading] = useSession();
+
   return (
     <>
       <Avatar src={session?.user?.image} className={classes.large} />
