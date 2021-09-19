@@ -7,17 +7,33 @@ const Layout = ({ children }) => {
   let ongoingSession = session ? true : false;
   if (loading) {
     return (
-      <div id="layout">
+      <>
         <div id="content">{children}</div>
-        {<BottomNav />}
-      </div>
+        {
+          <BottomNav
+            style={{
+              width: "100%",
+              position: "fixed",
+              bottom: 0,
+            }}
+          />
+        }
+      </>
     );
   }
   return (
-    <div id="layout">
+    <>
       <div id="content">{children}</div>
-      {!ongoingSession || <BottomNav />}
-    </div>
+      {!ongoingSession || (
+        <BottomNav
+          style={{
+            width: "100%",
+            position: "fixed",
+            bottom: 0,
+          }}
+        />
+      )}
+    </>
   );
 };
 

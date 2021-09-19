@@ -3,18 +3,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import PersonIcon from "@material-ui/icons/Person";
 import GroupIcon from "@material-ui/icons/Group";
 import { navigationAtom } from "../lib/atom";
 import { useAtom } from "jotai";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles({
   root: {
     width: 500,
+  },
+  stickToBottom: {
+    width: "100%",
+    position: "fixed",
+    bottom: 0,
   },
 });
 
@@ -30,7 +33,11 @@ export default function BottomNav() {
   if (router.pathname === "/profile" && index != 3) setIndex(3);
 
   return (
-    <BottomNavigation value={index} showLabels className={classes.root}>
+    <BottomNavigation
+      value={index}
+      showLabels
+      className={classes.stickToBottom}
+    >
       <BottomNavigationAction
         label="Hjem"
         icon={<HomeIcon />}

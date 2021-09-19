@@ -25,7 +25,7 @@ const Profile = () => {
   const [session, loading] = useSession();
 
   return (
-    <>
+    <div className="flexCenter">
       <Avatar src={session?.user?.image} className={classes.large} />
       <Typography variant="h6" gutterBottom>
         {session?.user?.name}
@@ -34,7 +34,7 @@ const Profile = () => {
         {session?.user?.email}
       </Typography>
       <LogoutButton />
-    </>
+    </div>
   );
 };
 

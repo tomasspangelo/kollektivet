@@ -2,8 +2,12 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/kollektiv": "pages/kollektiv.js",
   "/list": "pages/list.js",
+  "/kollektiv": "pages/kollektiv.js",
   "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
-  "/api/items": "pages/api/items.js"
+  "/": "pages/index.js",
+  "/api/members": "pages/api/members.js",
+  "/api/items": "pages/api/items.js",
+  "/api/items/unfinish": "pages/api/items/unfinish.js",
+  "/profile": "pages/profile.js"
 }

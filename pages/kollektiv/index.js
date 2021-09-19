@@ -3,7 +3,7 @@ import AddUserDialog from "../../components/AddUserDialog";
 import { useMembers } from "../../components/util/hooks";
 import { kollektivAtom } from "../../lib/atom";
 import { useAtom } from "jotai";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import { useRouter } from "next/router";
 import React from "react";
@@ -27,14 +27,29 @@ export default function Kollektiv() {
 
   return (
     <>
-      <MemberList kollektiv={kollektiv} />
-      <Button
-        variant="outlined"
-        startIcon={<GroupAddIcon />}
-        onClick={handleClickOpen}
-      >
-        Legg til bruker
-      </Button>
+      <div className="flexCenter">
+        <Typography variant="h6" gutterBottom>
+          {kollektiv?.navn}
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+          {kollektiv?.adresse}
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+          {kollektiv?.postnummer + ", " + kollektiv?.poststed}
+        </Typography>
+      </div>
+      <div className="overfloxBox">
+        <MemberList kollektiv={kollektiv} />
+      </div>
+      <div className="flexCenter">
+        <Button
+          variant="outlined"
+          startIcon={<GroupAddIcon />}
+          onClick={handleClickOpen}
+        >
+          Legg til bruker
+        </Button>
+      </div>
       <AddUserDialog
         open={open}
         setOpen={setOpen}

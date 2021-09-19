@@ -21,5 +21,5 @@ export default function Home() {
   } else {
     content = <p>Velkommen, {session?.user.name}!</p>;
   }
-  return <>{content}</>;
+  return <div className="flexCenter">{content}</div>;
 }

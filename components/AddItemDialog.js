@@ -11,21 +11,19 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useUser } from "./util/hooks";
 import MemberListSelectable from "./MemberListSelectable";
 
-export default function AddUserDialog(props) {
-  const { open, setOpen, handleClose, item } = props;
-  const [email, setEmail] = React.useState("");
-  const [selectedIndex, setSelectedIndex] = React.useState(null);
-  const [selectedPerson, setSelectedPerson] = React.useState(null);
-  const { result } = useUser(email);
+export default function AddItemDialog(props) {
+  const { open, setOpen } = props;
+  const [name, setName] = React.useState("");
+  const [comment, setComment] = React.useState("");
+  //const { result } = useUser(email);
   const submitData = async (e) => {
     e.preventDefault();
-
     try {
       const body = {
-        kollektivId: kollektiv?.id,
-        id: selectedPerson.id,
+        title: name,
+        content: comment,
       };
-      await fetch("/api/members/add", {
+      await fetch("/api/items/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -39,54 +37,48 @@ export default function AddUserDialog(props) {
     <div>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          Legg til bruker i kollektivet
-        </DialogTitle>
+        <DialogTitle id="form-dialog-title">Legg til</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Søk på bruker etter Email. Det er ikke mulig å legge til en bruker
-            som allerede er medlem av et annet kollektiv.
+            Legg til en ny gjenstand i kollektivets handleliste
           </DialogContentText>
-          <div className="photoBox">
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email"
-              type="email"
-              fullWidth
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <IconButton>
-              <SearchIcon></SearchIcon>
-            </IconButton>
-          </div>
-          <MemberListSelectable
-            medlemmer={result}
-            selectedIndex={selectedIndex}
-            setSelectedIndex={setSelectedIndex}
-            selectedPerson={selectedPerson}
-            setSelectedPerson={setSelectedPerson}
-          ></MemberListSelectable>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Navn"
+            type="text"
+            fullWidth
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Kommentar"
+            type="text"
+            fullWidth
+            multiline={true}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={() => setOpen(false)} color="primary">
             Avbryt
           </Button>
           <Button
             onClick={(e) => {
               submitData(e);
-              let newKollektiv = JSON.parse(JSON.stringify(kollektiv));
-              newKollektiv.medlemmer.push(selectedPerson);
-              setKollektiv(newKollektiv);
             }}
             color="primary"
-            disabled={!selectedIndex && selectedIndex != 0}
+            disabled={!name}
           >
-            Legg til bruker
+            Legg til gjenstand
           </Button>
         </DialogActions>
       </Dialog>

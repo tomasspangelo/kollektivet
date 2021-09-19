@@ -36,33 +36,21 @@ const MemberList = (props) => {
   const classes = useStyles();
   const { kollektiv } = props;
   return (
-    <>
-      <Typography variant="h6" gutterBottom>
-        {kollektiv?.navn}
-      </Typography>
-      <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-        {kollektiv?.adresse}
-      </Typography>
-      <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-        {kollektiv?.postnummer + ", " + kollektiv?.poststed}
-      </Typography>
-
-      <List className={classes.root}>
-        {kollektiv?.medlemmer?.map((medlem, i) => (
-          <div key={i}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar src={medlem.image}></Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={medlem.name} secondary={medlem.email} />
-            </ListItem>
-            {i == kollektiv.medlemmer.length - 1 || (
-              <Divider variant="inset" component="li" />
-            )}
-          </div>
-        ))}
-      </List>
-    </>
+    <List className={classes.root}>
+      {kollektiv?.medlemmer?.map((medlem, i) => (
+        <div key={i}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar src={medlem.image}></Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={medlem.name} secondary={medlem.email} />
+          </ListItem>
+          {i == kollektiv.medlemmer.length - 1 || (
+            <Divider variant="inset" component="li" />
+          )}
+        </div>
+      ))}
+    </List>
   );
 };
 
