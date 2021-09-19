@@ -7,11 +7,31 @@ import { Button, Typography } from "@material-ui/core";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import { useRouter } from "next/router";
 import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { getSession } from "next-auth/client";
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default function Kollektiv() {
   const [kollektiv, setKollektiv] = useAtom(kollektivAtom);
   const { result } = useMembers();
   const router = useRouter();
+  const isLoading = result ? false : true;
   if (kollektiv != result) {
     setKollektiv(result);
   }
@@ -29,17 +49,29 @@ export default function Kollektiv() {
     <>
       <div className="flexCenter">
         <Typography variant="h6" gutterBottom>
-          {kollektiv?.navn}
+          {isLoading ? "Mitt kollektiv" : kollektiv?.navn}
         </Typography>
-        <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-          {kollektiv?.adresse}
-        </Typography>
-        <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-          {kollektiv?.postnummer + ", " + kollektiv?.poststed}
-        </Typography>
+        {isLoading || (
+          <>
+            <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+              {isLoading ? "Henrik Ibsens gate 1" : kollektiv?.adresse}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+              {isLoading
+                ? "0255, Oslo"
+                : kollektiv?.postnummer + ", " + kollektiv?.poststed}
+            </Typography>
+          </>
+        )}
       </div>
       <div className="overfloxBox">
-        <MemberList kollektiv={kollektiv} />
+        {isLoading ? (
+          <div className="flexCenter">
+            <CircularProgress style={{ margin: "16px" }} />
+          </div>
+        ) : (
+          <MemberList kollektiv={kollektiv} />
+        )}
       </div>
       <div className="flexCenter">
         <Button

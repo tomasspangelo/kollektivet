@@ -42,7 +42,7 @@ const Profile = ({ session }) => {
   //const [session, loading] = useSession();
 
   return (
-    <div className="flexCenter">
+    <div className="flexCenter stretch">
       <Avatar src={session?.user?.image} className={classes.large} />
       <Typography variant="h6" gutterBottom>
         {session?.user?.name}
