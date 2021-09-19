@@ -122,9 +122,6 @@ export default function BuyItemDialog(props) {
           <Button onClick={handleClose} color="primary">
             Avbryt
           </Button>
-          <Button onClick={(e) => deleteData(e)} color="primary">
-            Slett
-          </Button>
 
           <Button onClick={(e) => submitData(e)} color="primary">
             Lagre
