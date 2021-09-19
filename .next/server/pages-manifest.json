@@ -3,11 +3,11 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/list": "pages/list.js",
-  "/kollektiv": "pages/kollektiv.js",
   "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
-  "/": "pages/index.js",
-  "/api/members": "pages/api/members.js",
   "/api/items": "pages/api/items.js",
-  "/api/items/unfinish": "pages/api/items/unfinish.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/api/items/delete": "pages/api/items/delete.js",
+  "/kollektiv": "pages/kollektiv.js",
+  "/api/members": "pages/api/members.js",
   "/profile": "pages/profile.js"
 }

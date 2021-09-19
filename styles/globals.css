@@ -41,6 +41,12 @@ a {
   overflow: auto;
   flex-direction: column;
 }
+.flexHorizontal {
+  display: flex;
+  align-items: flex-end;
+  overflow: auto;
+  flex-direction: row;
+}
 .overflowBox {
   max-height: 70%;
   overflow: auto;

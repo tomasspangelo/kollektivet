@@ -10,6 +10,14 @@ export default async function handle(req, res) {
     include: {
       createdBy: true,
     },
+    orderBy: [
+      {
+        bought: "asc",
+      },
+      {
+        updatedAt: "desc",
+      },
+    ],
   });
   res.json(result);
 }

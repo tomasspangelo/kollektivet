@@ -1,4 +1,11 @@
-import { Button, Checkbox, Typography } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+  Typography,
+} from "@material-ui/core";
 import { useItems } from "../components/util/hooks";
 import ShoppingList from "../components/ShoppingList";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
@@ -8,7 +15,8 @@ import AddItemDialog from "../components/AddItemDialog";
 const List = () => {
   const { items } = useItems();
   const [open, setOpen] = useState(false);
-  const numUnfinished = items?.filter((item) => item.bought).length;
+  const [includeBought, setIncludeBought] = useState(true);
+  const numFinished = items?.filter((item) => item.bought).length;
   return (
     <>
       <div className="flexCenter">
@@ -16,11 +24,23 @@ const List = () => {
           Handleliste
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-          {`${numUnfinished}/${items?.length} gjenstander kjøpt inn.`}
+          {`${numFinished}/${items?.length} gjenstander kjøpt inn.`}
         </Typography>
+        <div className="flexHorizontal">
+          <Switch
+            checked={includeBought}
+            onChange={(e) => setIncludeBought(e.target.checked)}
+            color="primary"
+          />
+          <Typography variant="body1" gutterBottom>
+            Innkluder innkjøpte
+          </Typography>
+        </div>
       </div>
       <div className="overflowBox">
-        <ShoppingList items={items}></ShoppingList>
+        <ShoppingList
+          items={includeBought ? items : items.filter((item) => !item.bought)}
+        ></ShoppingList>
       </div>
       <div className="flexCenter" style={{ marginTop: "16px" }}>
         <Button

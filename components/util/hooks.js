@@ -18,7 +18,7 @@ export function useUser(keyword) {
 
 export function useItems() {
   const { data: items } = useSWR("/api/items", fetcher, {
-    refreshInterval: 1000,
+    refreshInterval: 500,
   });
   return { items };
 }
