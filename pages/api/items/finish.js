@@ -6,7 +6,6 @@ export default async function handle(req, res) {
     req,
   });
   const { item } = req.body;
-  console.log(session);
   const result = await prisma.item.update({
     where: {
       id: item.id,

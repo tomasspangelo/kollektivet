@@ -1,8 +1,24 @@
 import Avatar from "@material-ui/core/Avatar";
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LogoutButton from "../components/LogoutButton";
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,9 +36,10 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(20),
   },
 }));
-const Profile = () => {
+
+const Profile = ({ session }) => {
   const classes = useStyles();
-  const [session, loading] = useSession();
+  //const [session, loading] = useSession();
 
   return (
     <div className="flexCenter">

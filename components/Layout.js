@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   if (loading) {
     return (
       <>
-        <div id="content">{children}</div>
+        <div id="content"></div>
         {
           <BottomNav
             style={{
