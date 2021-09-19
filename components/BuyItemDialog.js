@@ -7,7 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-import { IconButton } from "@material-ui/core";
+import { Avatar, IconButton, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function BuyItemDialog(props) {
@@ -66,6 +66,24 @@ export default function BuyItemDialog(props) {
       console.error(error);
     }
   };
+  const updatePrice = async (e) => {
+    e.preventDefault();
+    const newItem = JSON.parse(JSON.stringify(selectedItem));
+    newItem.pricePayed = parseInt(price);
+    try {
+      const body = {
+        item: newItem,
+      };
+      await fetch("/api/items/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      await setOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       <Dialog
@@ -92,7 +110,11 @@ export default function BuyItemDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Oppgi hvor mye du betalte for varen. Dette kan endres senere.
+            {selectedItem?.bought
+              ? `Varen ble kjøpt inn ${new Date(
+                  selectedItem?.boughtAt
+                ).toLocaleDateString()}.`
+              : "Oppgi hvor mye du betalte for varen (dette kan endres senere)."}
           </DialogContentText>
           <TextField
             autoFocus
@@ -107,25 +129,50 @@ export default function BuyItemDialog(props) {
           <br />
           <br />
           {!selectedItem?.bought || (
-            <Button
-              onClick={(e) => submitDataUnfinish(e)}
-              color="secondary"
-              variant="outlined"
-              startIcon={<CloseIcon></CloseIcon>}
-              disabled={!selectedItem?.bought}
-            >
-              Fjern som fullført
-            </Button>
+            <>
+              <Typography variant="subtitle2">Kjøpt inn av</Typography>
+              <div
+                class="flexCenterHorizontal"
+                style={{ marginBottom: "16px", marginTop: "8px" }}
+              >
+                <Avatar src={selectedItem?.finishedBy?.image} />
+                <p style={{ marginLeft: "8px" }}>
+                  {selectedItem?.finishedBy?.name}
+                </p>
+              </div>
+              <Button
+                onClick={(e) => submitDataUnfinish(e)}
+                color="secondary"
+                variant="outlined"
+                startIcon={<CloseIcon></CloseIcon>}
+                disabled={!selectedItem?.bought}
+              >
+                Fjern som fullført
+              </Button>
+            </>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Avbryt
           </Button>
-
-          <Button onClick={(e) => submitData(e)} color="primary">
-            Lagre
-          </Button>
+          {selectedItem?.bought ? (
+            <Button
+              onClick={(e) => updatePrice(e)}
+              color="primary"
+              disabled={!price}
+            >
+              Lagre
+            </Button>
+          ) : (
+            <Button
+              onClick={(e) => submitData(e)}
+              color="primary"
+              disabled={!price}
+            >
+              Fullfør innkjøp
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

@@ -9,6 +9,7 @@ export default async function handle(req, res) {
     },
     include: {
       createdBy: true,
+      finishedBy: true,
     },
     orderBy: [
       {
