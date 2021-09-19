@@ -132,7 +132,7 @@ export default function BuyItemDialog(props) {
             <>
               <Typography variant="subtitle2">Kjøpt inn av</Typography>
               <div
-                class="flexCenterHorizontal"
+                className="flexCenterHorizontal"
                 style={{ marginBottom: "16px", marginTop: "8px" }}
               >
                 <Avatar src={selectedItem?.finishedBy?.image} />
