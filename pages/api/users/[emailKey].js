@@ -2,12 +2,22 @@ import prisma from "../../../lib/prisma";
 
 export default async function handle(req, res) {
   const { emailKey } = req.query;
+  console.log(emailKey);
 
   const result = await prisma.user.findMany({
     where: {
-      email: {
-        contains: emailKey,
-      },
+      OR: [
+        {
+          email: {
+            contains: emailKey,
+          },
+        },
+        {
+          name: {
+            contains: emailKey,
+          },
+        },
+      ],
       kollektivId: {
         equals: null,
       },

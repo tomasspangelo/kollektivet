@@ -54,16 +54,16 @@ export default function AddUserDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Søk på bruker etter Email. Det er ikke mulig å legge til en bruker
-            som allerede er medlem av et annet kollektiv.
+            Søk på bruker etter email eller navn. Det er ikke mulig å legge til
+            en bruker som allerede er medlem av et annet kollektiv.
           </DialogContentText>
           <div className="photoBox">
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email"
-              type="email"
+              label="Søkeord"
+              type="text"
               fullWidth
               onChange={(e) => setEmail(e.target.value)}
             />
