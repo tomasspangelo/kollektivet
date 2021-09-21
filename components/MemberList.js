@@ -9,6 +9,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Divider from "@material-ui/core/Divider";
+import { IconButton, ListItemSecondaryAction } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteDialog from "./DeleteDialog";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,22 +39,42 @@ const useStyles = makeStyles((theme) => ({
 const MemberList = (props) => {
   const classes = useStyles();
   const { kollektiv } = props;
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
   return (
-    <List className={classes.root}>
-      {kollektiv?.medlemmer?.map((medlem, i) => (
-        <div key={i}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar src={medlem.image}></Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={medlem.name} secondary={medlem.email} />
-          </ListItem>
-          {i == kollektiv.medlemmer.length - 1 || (
-            <Divider variant="inset" component="li" />
-          )}
-        </div>
-      ))}
-    </List>
+    <>
+      <List className={classes.root}>
+        {kollektiv?.medlemmer?.map((medlem, i) => (
+          <div key={i}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar src={medlem.image}></Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={medlem.name} secondary={medlem.email} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  onClick={() => {
+                    setOpen(true);
+                    setSelected(medlem);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+            {i == kollektiv.medlemmer.length - 1 || (
+              <Divider variant="inset" component="li" />
+            )}
+          </div>
+        ))}
+      </List>
+      <DeleteDialog
+        open={open}
+        setOpen={setOpen}
+        selected={selected}
+      ></DeleteDialog>
+    </>
   );
 };
 
