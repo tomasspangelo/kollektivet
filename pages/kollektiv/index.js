@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { getSession } from "next-auth/client";
-
+/*
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
     props: { session },
   };
 }
-
+*/
 export default function Kollektiv() {
   const [kollektiv, setKollektiv] = useAtom(kollektivAtom);
   const { result } = useMembers();
