@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import { Avatar, IconButton, Typography } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 export default function DeleteDialog(props) {
+  const router = useRouter();
   const { open, setOpen, selected } = props;
+  const [session, loading] = useSession();
   console.log(selected);
   const submitData = async (e) => {
     e.preventDefault();
@@ -25,6 +25,9 @@ export default function DeleteDialog(props) {
         body: JSON.stringify(body),
       });
       await setOpen(false);
+      if (session?.user?.id === selected?.id) {
+        router.reload(window.location.pathname);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -5,11 +5,15 @@ import { kollektivAtom } from "../../lib/atom";
 import { useAtom } from "jotai";
 import { Button, Typography } from "@material-ui/core";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import AddIcon from "@material-ui/icons/Add";
 import { useRouter } from "next/router";
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useSession } from "next-auth/client";
+import NewKollektivDialog from "../../components/newKollektivDialog";
 
 export default function Kollektiv() {
+  const [session, loading] = useSession();
   const [kollektiv, setKollektiv] = useAtom(kollektivAtom);
   const { result } = useMembers();
   const router = useRouter();
@@ -26,8 +30,7 @@ export default function Kollektiv() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  return (
+  let content = (
     <>
       <div className="flexCenter">
         <Typography variant="h6" gutterBottom>
@@ -74,4 +77,32 @@ export default function Kollektiv() {
       ></AddUserDialog>
     </>
   );
+  if (session?.user.kollektivId === null) {
+    content = (
+      <div className="flexCenter stretch">
+        <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+          Oops... Du er ikke med i noe kollektiv!
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          style={{ margin: "16px" }}
+          onClick={() => setOpen(true)}
+        >
+          Opprett et nytt kollektiv
+        </Button>
+        <Typography
+          variant="subtitle1"
+          color="textSecondary"
+          gutterBottom
+          style={{ textAlign: "center" }}
+        >
+          ...eller få noen du kjenner til å legge deg til i deres kollektiv.
+        </Typography>
+        <NewKollektivDialog open={open} setOpen={setOpen}></NewKollektivDialog>
+      </div>
+    );
+  }
+  return content;
 }
