@@ -3,22 +3,6 @@ import { getSession, useSession } from "next-auth/client";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LogoutButton from "../components/LogoutButton";
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,13 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = ({ session }) => {
+const Profile = () => {
   const classes = useStyles();
-  //const [session, loading] = useSession();
+  const [session, loading] = useSession();
 
   return (
     <div className="flexCenter stretch">
-      <Avatar src={session?.user?.image} className={classes.large} />
+      {loading ? (
+        <Avatar />
+      ) : (
+        <Avatar src={session?.user?.image} className={classes.large} />
+      )}
       <Typography variant="h6" gutterBottom>
         {session?.user?.name}
       </Typography>
