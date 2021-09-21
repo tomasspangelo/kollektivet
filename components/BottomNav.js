@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -6,7 +7,18 @@ import PersonIcon from "@material-ui/icons/Person";
 import GroupIcon from "@material-ui/icons/Group";
 import { useRouter } from "next/router";
 import HomeIcon from "@material-ui/icons/Home";
-import { Paper } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    width: 500,
+  },
+  stickToBottom: {
+    width: "100%",
+    position: "fixed",
+    bottom: 0,
+    elevation: "1dp",
+  },
+});
 
 export default function BottomNav() {
   let initialIndex = 0;
@@ -15,6 +27,7 @@ export default function BottomNav() {
   if (router.pathname === "/list") initialIndex = 2;
   if (router.pathname === "/profile") initialIndex = 3;
 
+  const classes = useStyles();
   const [index, setIndex] = useState(initialIndex);
   console.log(router.pathname);
   useEffect(() => {
@@ -28,11 +41,14 @@ export default function BottomNav() {
       router.push("/profile");
     }
   }, [index]);
-
   return (
-    <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-      elevation={3}
+    <div
+      style={{
+        width: "100%",
+        position: "fixed",
+        bottom: 0,
+        boxShadow: "rgba(0, 0, 0, 0.5) 0px 1px 4px",
+      }}
     >
       <BottomNavigation
         value={index}
@@ -48,6 +64,6 @@ export default function BottomNav() {
 
         <BottomNavigationAction label="Bruker" icon={<PersonIcon />} />
       </BottomNavigation>
-    </Paper>
+    </div>
   );
 }
