@@ -91,22 +91,19 @@ export default function BuyItemDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="form-dialog-title">
-          {selectedItem?.title}
+        <DialogTitle id="form-dialog-title">
           {handleClose ? (
             <IconButton
               aria-label="close"
               onClick={(e) => deleteData(e)}
               sx={{
-                position: "absolute",
-                right: 8,
-                top: 8,
                 color: (theme) => theme.palette.grey[500],
               }}
             >
               <DeleteIcon />
             </IconButton>
           ) : null}
+          {selectedItem?.title}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
