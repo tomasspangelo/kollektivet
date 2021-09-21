@@ -9,7 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const List = () => {
   const { items } = useItems();
   const [open, setOpen] = useState(false);
-  const [includeBought, setIncludeBought] = useState(true);
+  const [includeBought, setIncludeBought] = useState(false);
   const numFinished = items?.filter((item) => item.bought).length;
   const isLoading = items ? false : true;
   return (

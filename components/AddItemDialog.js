@@ -46,7 +46,6 @@ export default function AddItemDialog(props) {
             Legg til en ny gjenstand i kollektivets handleliste
           </DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             label="Navn"
@@ -56,7 +55,6 @@ export default function AddItemDialog(props) {
             value={name}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             label="Kommentar"
