@@ -1,11 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  Typography,
-} from "@material-ui/core";
+import { Button, Switch, Typography } from "@material-ui/core";
 import { useItems } from "../components/util/hooks";
 import ShoppingList from "../components/ShoppingList";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
