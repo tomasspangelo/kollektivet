@@ -13,7 +13,7 @@ import { useState } from "react";
 import AddItemDialog from "../components/AddItemDialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { getSession } from "next-auth/client";
-
+/*
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
     props: { session },
   };
 }
-
+*/
 const List = () => {
   const { items } = useItems();
   const [open, setOpen] = useState(false);
