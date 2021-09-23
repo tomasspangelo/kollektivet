@@ -6,6 +6,7 @@ export default async function handle(req, res) {
     req,
   });
   const { selected, jobs, firstWeek, numWeeks, kollektivId, year } = req.body;
+
   const vaskeliste = await prisma.vaskeliste.create({
     data: {
       kollektiv: {
@@ -31,11 +32,12 @@ export default async function handle(req, res) {
     });
     jobs_db[j] = job;
   }
+
   let newYear = year;
   let offset = 0;
   for (let i in [...Array(numWeeks).keys()]) {
     let week = firstWeek + parseInt(i);
-    console.log(week);
+
     if (week > 52) {
       week = week % 52;
       newYear++;
@@ -51,7 +53,9 @@ export default async function handle(req, res) {
         },
       },
     });
-    for (let j in jobs_db) {
+
+    for (let j in [...Array(jobs_db.length).keys()]) {
+      const index = parseInt(j);
       const data = {
         finished: false,
         rad: {
@@ -61,11 +65,14 @@ export default async function handle(req, res) {
         },
         job: {
           connect: {
-            id: jobs_db[(j + offset) % jobs_db.length].id,
+            id: jobs_db[(index + offset) % jobs_db.length].id,
           },
         },
       };
-      if (selected[j] !== -1) data["user"] = { connect: { id: selected[j] } };
+      if (selected[index] !== -1)
+        data["user"] = {
+          connect: { id: selected[index] },
+        };
       const userJob = await prisma.userJob.create({ data: data });
     }
     offset++;
