@@ -22,6 +22,9 @@ export default async function handle(req, res) {
         },
         include: {
           userJobs: {
+            orderBy: {
+              jobId: "asc",
+            },
             include: {
               job: true,
               user: true,
