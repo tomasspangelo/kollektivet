@@ -51,23 +51,22 @@ export default function CreateVaskelisteDialog(props) {
   };
 
   const content = [
-    <div key={0}>
-      <CreateJobs jobs={jobs} setJobs={setJobs} />,
-      <CreateVaskeliste
-        jobs={jobs}
-        selected={selected}
-        setSelected={setSelected}
-        kollektiv={kollektiv}
-      />
-    </div>,
-    <ChooseWeek
+    <CreateJobs jobs={jobs} setJobs={setJobs} key={0} />,
+    <CreateVaskeliste
+      jobs={jobs}
+      selected={selected}
+      setSelected={setSelected}
+      kollektiv={kollektiv}
       key={1}
+    />,
+    <ChooseWeek
+      key={2}
       firstWeek={firstWeek}
       setFirstWeek={setFirstWeek}
       numWeeks={numWeeks}
       setNumWeeks={setNumWeeks}
     ></ChooseWeek>,
-    <div key={2}>
+    <div key={3}>
       <DialogContentText>Generer vaskeliste...</DialogContentText>
       <div className="flexCenter2">
         <CircularProgress></CircularProgress>
@@ -103,7 +102,8 @@ export default function CreateVaskelisteDialog(props) {
                 disabled={
                   index === content.length - 1 ||
                   jobs.length === 0 ||
-                  (index === 2 && (!firstWeek || !numWeeks))
+                  (index === 2 && (!firstWeek || !numWeeks)) ||
+                  jobs.filter((job) => !job.name).length > 0
                 }
               >
                 Neste
