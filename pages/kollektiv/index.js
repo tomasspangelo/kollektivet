@@ -7,7 +7,7 @@ import { Button, Typography } from "@material-ui/core";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import AddIcon from "@material-ui/icons/Add";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useSession } from "next-auth/client";
 import NewKollektivDialog from "../../components/newKollektivDialog";
@@ -18,9 +18,12 @@ export default function Kollektiv() {
   const { result } = useMembers();
   const router = useRouter();
   const isLoading = result ? false : true;
-  if (kollektiv != result) {
-    setKollektiv(result);
-  }
+  useEffect(() => {
+    if (kollektiv != result) {
+      setKollektiv(result);
+    }
+  }, [result]);
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

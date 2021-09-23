@@ -12,7 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import { IconButton, ListItemSecondaryAction } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteDialog from "./DeleteDialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {

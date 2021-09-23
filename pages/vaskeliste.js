@@ -67,8 +67,8 @@ export default function Vaskeliste() {
               </TableHead>
               <TableBody>
                 {vaskeliste[0]?.rader?.map((row, i) => (
-                  <TableRow>
-                    <TableCell key={i}>{row.week}</TableCell>
+                  <TableRow key={i}>
+                    <TableCell>{row.week}</TableCell>
                     {row?.userJobs?.map((userJob, j) => (
                       <TableCell key={j}>
                         {userJob.user?.name || "Ingen"}

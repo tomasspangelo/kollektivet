@@ -35,6 +35,54 @@ model Kollektiv {
   poststed   String
   medlemmer  User[]
   items      Item[]
+  vaskeliste Vaskeliste?
+}
+
+model Vaskeliste {
+  id            Int    @id @default(autoincrement())
+  rader         Rad[]
+  kollektiv     Kollektiv @relation(fields:[kollektivId], references: [id])
+  kollektivId   Int
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")  
+   jobs       Job[]    
+}
+
+model Rad {
+  id            Int    @id @default(autoincrement())
+  vaskeliste    Vaskeliste @relation(fields:[vaskelisteId], references: [id])
+  vaskelisteId  Int
+  userJobs      UserJob[]
+  week          Int
+  year          Int
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+}
+
+model UserJob {
+  id          Int     @id @default(autoincrement())
+  user        User?    @relation(fields:[userId], references:[id])
+  userId      Int?
+  job         Job     @relation(fields:[jobId], references:[id])
+  jobId       Int
+  rad         Rad     @relation(fields:[radId], references:[id])
+  radId       Int
+  finished    Boolean
+  finishedAt  DateTime?
+  comment     String?
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")  
+}
+model Job {
+  id          Int    @id @default(autoincrement())
+  name        String
+  index       Int
+  description String?
+  userJobs    UserJob[]
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  vaskeliste  Vaskeliste @relation(fields:[vaskelisteId],references:[id])
+  vaskelisteId Int     
 }
 
 model User {
@@ -49,9 +97,11 @@ model User {
   kollektivId   Int?
   createdItems  Item[]    @relation("CreatedBy")
   finishedItems Item[]    @relation("FinishedBy")
+  jobs          UserJob[]
 
   @@map(name: "users")
 }
+
 
 model Account {
   id                 Int       @id @default(autoincrement())

@@ -41,6 +41,12 @@ a {
   overflow: auto;
   flex-direction: column;
 }
+.flexCenter2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .stretch {
   height: 100%;
 }
@@ -56,6 +62,10 @@ a {
   overflow: auto;
   flex-direction: row;
   align-items: center;
+}
+.flexSpace {
+  justify-content: space-between;
+  width: 100%;
 }
 .overflowBox {
   max-height: 70%;

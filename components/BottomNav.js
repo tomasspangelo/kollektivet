@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import TodayIcon from "@material-ui/icons/Today";
 import PersonIcon from "@material-ui/icons/Person";
 import GroupIcon from "@material-ui/icons/Group";
 import { useRouter } from "next/router";
@@ -25,7 +26,8 @@ export default function BottomNav() {
   const router = useRouter();
   if (router.pathname === "/kollektiv") initialIndex = 1;
   if (router.pathname === "/list") initialIndex = 2;
-  if (router.pathname === "/profile") initialIndex = 3;
+  if (router.pathname === "/vaskeliste") initialIndex = 3;
+  if (router.pathname === "/profile") initialIndex = 4;
 
   const classes = useStyles();
   const [index, setIndex] = useState(initialIndex);
@@ -38,6 +40,8 @@ export default function BottomNav() {
     } else if (index === 2) {
       router.push("/list");
     } else if (index === 3) {
+      router.push("/vaskeliste");
+    } else if (index === 4) {
       router.push("/profile");
     }
   }, [index]);
@@ -61,7 +65,7 @@ export default function BottomNav() {
           label="Handleliste"
           icon={<ShoppingCartIcon />}
         />
-
+        <BottomNavigationAction label="Vaskeliste" icon={<TodayIcon />} />
         <BottomNavigationAction label="Bruker" icon={<PersonIcon />} />
       </BottomNavigation>
     </div>

@@ -7,6 +7,12 @@ export function useMembers() {
   });
   return { result };
 }
+export function useVaskeliste() {
+  const { data: vaskeliste } = useSWR("/api/vaskeliste", fetcher, {
+    refreshInterval: 1000,
+  });
+  return { vaskeliste };
+}
 
 export function useUser(keyword) {
   const { data: result } = useSWR(
