@@ -32,7 +32,7 @@ export default function Vaskeliste() {
         <Typography variant="h6" gutterBottom>
           Vaskeliste
         </Typography>
-        {!!vaskeliste || (
+        {vaskeliste?.length > 0 || (
           <>
             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
               Det ser ut til at kollektivet ditt ikke har noen vaskeliste!
@@ -48,7 +48,7 @@ export default function Vaskeliste() {
             </Button>
           </>
         )}
-        {!vaskeliste || (
+        {!vaskeliste || vaskeliste?.length === 0 || (
           <>
             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
               Her finner du vaskelisten for de neste ukene.
@@ -60,22 +60,30 @@ export default function Vaskeliste() {
               <TableHead>
                 <TableRow>
                   <TableCell>Uke</TableCell>
-                  {vaskeliste[0]?.rader[0]?.userJobs?.map((userJob, i) => (
-                    <TableCell key={i}>{userJob.job?.name}</TableCell>
-                  ))}
+                  {vaskeliste ? (
+                    vaskeliste[0]?.rader[0]?.userJobs?.map((userJob, i) => (
+                      <TableCell key={i}>{userJob.job?.name}</TableCell>
+                    ))
+                  ) : (
+                    <></>
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {vaskeliste[0]?.rader?.map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell>{row.week}</TableCell>
-                    {row?.userJobs?.map((userJob, j) => (
-                      <TableCell key={j}>
-                        {userJob.user?.name || "Ingen"}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
+                {vaskeliste ? (
+                  vaskeliste[0]?.rader?.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{row.week}</TableCell>
+                      {row?.userJobs?.map((userJob, j) => (
+                        <TableCell key={j}>
+                          {userJob.user?.name || "Ingen"}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <></>
+                )}
               </TableBody>
             </Table>
             {true || (
