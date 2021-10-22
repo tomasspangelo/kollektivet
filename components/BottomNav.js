@@ -31,7 +31,6 @@ export default function BottomNav() {
 
   const classes = useStyles();
   const [index, setIndex] = useState(initialIndex);
-  console.log(router.pathname);
   useEffect(() => {
     if (index === 0) {
       router.push("/");

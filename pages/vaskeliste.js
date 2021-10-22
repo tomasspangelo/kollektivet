@@ -30,9 +30,7 @@ export default function Vaskeliste() {
   const { vaskeliste } = useVaskeliste();
   const weekNow = moment(new Date(Date.now())).isoWeek();
   const yearNow = moment(new Date(Date.now())).year();
-  console.log(vaskeliste);
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSelectedUser(e.target.value);
   };
   useEffect(() => {
@@ -42,7 +40,6 @@ export default function Vaskeliste() {
           (userJob) => userJob.user.id == selectedUser
         )[0]
       );
-      console.log(selectedUserJob);
     }
   }, [selectedUser]);
   useEffect(() => {
@@ -82,8 +79,11 @@ export default function Vaskeliste() {
             </Button>
           </>
         )}
-        {!vaskeliste || vaskeliste?.length === 0 || (
-          <>
+      </div>
+
+      {!vaskeliste || vaskeliste?.length === 0 || (
+        <>
+          <div className="flexCenter">
             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
               Her finner du vaskelisten for de neste ukene.
             </Typography>
@@ -104,45 +104,53 @@ export default function Vaskeliste() {
                 </MenuItem>
               ))}
             </Select>
+            <br></br>
+          </div>
+          <div
+            className="overflowBox text-overflow-center"
+            style={{ margin: "auto" }}
+          >
             {selectedUserJob && (
               <>
-                <br></br>
-                <div style={{ width: "90%" }}>
-                  <UserJobCard
-                    userJob={selectedUserJob}
-                    weekNow={weekNow}
-                    yearNow={yearNow}
-                  />
+                <div className="flexCenter">
+                  <div style={{ width: "90%" }}>
+                    <UserJobCard
+                      userJob={selectedUserJob}
+                      weekNow={weekNow}
+                      yearNow={yearNow}
+                    />
+                  </div>
                 </div>
               </>
             )}
             {!selectedUserJob &&
               vaskeliste &&
               vaskeliste[0].rader[0].userJobs.map((userJob, i) => (
-                <div key={i} style={{ width: "90%" }}>
-                  <br />
-                  <UserJobCard
-                    userJob={userJob}
-                    weekNow={weekNow}
-                    yearNow={yearNow}
-                  />
+                <div key={i} className="flexCenter">
+                  <div style={{ width: "90%" }}>
+                    <UserJobCard
+                      userJob={userJob}
+                      weekNow={weekNow}
+                      yearNow={yearNow}
+                    />
+                    <br></br>
+                  </div>
                 </div>
               ))}
-
-            {true || (
-              <Button
-                variant="contained"
-                color="default"
-                startIcon={<DeleteIcon />}
-                onClick={() => setOpen(true)}
-                style={{ marginTop: "16px" }}
-              >
-                Slett vaskeliste
-              </Button>
-            )}
-          </>
-        )}
-      </div>
+          </div>
+          {true || (
+            <Button
+              variant="contained"
+              color="default"
+              startIcon={<DeleteIcon />}
+              onClick={() => setOpen(true)}
+              style={{ marginTop: "16px" }}
+            >
+              Slett vaskeliste
+            </Button>
+          )}
+        </>
+      )}
       <CreateVaskelisteDialog
         open={open}
         setOpen={setOpen}

@@ -27,7 +27,6 @@ export default function CreateVaskelisteDialog(props) {
   const { result: kollektiv } = useMembers();
 
   const [session, loading] = useSession();
-  console.log(selected);
   const submitData = async (e) => {
     e.preventDefault();
     try {

@@ -90,3 +90,9 @@ a {
 .listPhoto {
   margin-right: 16px;
 }
+
+.text-overflow-center {
+  margin-left: -100%;
+  margin-right: -100%;
+  text-align: center;
+}
