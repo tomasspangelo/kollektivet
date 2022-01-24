@@ -43,7 +43,7 @@ export default function BottomNav() {
     } else if (index === 4) {
       router.push("/profile");
     }
-  }, [index, router]);
+  }, [index]);
   return (
     <div
       style={{
