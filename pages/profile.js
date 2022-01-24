@@ -1,8 +1,10 @@
 import Avatar from "@material-ui/core/Avatar";
-import { getSession, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LogoutButton from "../components/LogoutButton";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
   const [session, loading] = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/");
+    }
+  }, [loading, session]);
 
   return (
     <div className="flexCenter stretch">

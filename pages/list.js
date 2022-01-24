@@ -2,16 +2,25 @@ import { Button, Switch, Typography } from "@material-ui/core";
 import { useItems } from "../components/util/hooks";
 import ShoppingList from "../components/ShoppingList";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddItemDialog from "../components/AddItemDialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 const List = () => {
+  const [session, loading] = useSession();
   const { items } = useItems();
   const [open, setOpen] = useState(false);
   const [includeBought, setIncludeBought] = useState(false);
   const numFinished = items?.filter((item) => item.bought).length;
   const isLoading = items ? false : true;
+  const router = useRouter();
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/");
+    }
+  }, [loading, session]);
   return (
     <>
       <div className="flexCenter">

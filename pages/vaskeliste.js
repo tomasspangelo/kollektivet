@@ -1,18 +1,4 @@
-import LoginButton from "../components/LoginButton";
-import { useSession } from "next-auth/client";
-import {
-  Button,
-  CircularProgress,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  Typography,
-  TableSortLabel,
-  TableBody,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import { Button, Typography, Select, MenuItem } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useEffect, useState } from "react";
@@ -20,7 +6,8 @@ import CreateVaskelisteDialog from "../components/CreateVaskelisteDialog";
 import UserJobCard from "../components/UserJobCard";
 import { useVaskeliste } from "../components/util/hooks";
 import moment from "moment";
-import { DataGrid } from "@mui/x-data-grid";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
 export default function Vaskeliste() {
   const [open, setOpen] = useState(false);
@@ -30,9 +17,17 @@ export default function Vaskeliste() {
   const { vaskeliste } = useVaskeliste();
   const weekNow = moment(new Date(Date.now())).isoWeek();
   const yearNow = moment(new Date(Date.now())).year();
+  const [session, loading] = useSession();
+  const router = useRouter();
   const handleChange = (e) => {
     setSelectedUser(e.target.value);
   };
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/");
+    }
+  }, [loading, session]);
+
   useEffect(() => {
     if (selectedUser) {
       setSelectedUserJob(
@@ -55,7 +50,6 @@ export default function Vaskeliste() {
         })
       );
     }
-    console.log(vaskeliste);
   }, [vaskeliste]);
 
   return (

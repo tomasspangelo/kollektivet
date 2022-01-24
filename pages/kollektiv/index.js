@@ -23,6 +23,11 @@ export default function Kollektiv() {
       setKollektiv(result);
     }
   }, [result, kollektiv, setKollektiv]);
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/");
+    }
+  }, [loading, session]);
 
   const [open, setOpen] = React.useState(false);
 
