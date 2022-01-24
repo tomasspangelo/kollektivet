@@ -37,11 +37,11 @@ export default function Vaskeliste() {
     if (selectedUser) {
       setSelectedUserJob(
         vaskeliste[0].rader[0].userJobs.filter(
-          (userJob) => userJob.user.id == selectedUser
+          (userJob) => userJob.user?.id == selectedUser
         )[0]
       );
     }
-  }, [selectedUser]);
+  }, [selectedUser, vaskeliste]);
   useEffect(() => {
     if (
       vaskeliste &&
@@ -51,10 +51,11 @@ export default function Vaskeliste() {
       const userJobs = vaskeliste[0].rader[0].userJobs;
       setUserChoices(
         userJobs.map((userJob) => {
-          return { id: userJob.user.id, name: userJob.user.name };
+          return { id: userJob.user?.id, name: userJob.user?.name };
         })
       );
     }
+    console.log(vaskeliste);
   }, [vaskeliste]);
 
   return (
@@ -85,7 +86,7 @@ export default function Vaskeliste() {
         <>
           <div className="flexCenter">
             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-              Her finner du vaskelisten for de neste ukene.
+              Her finner du vaskelisten for nåværende uke.
             </Typography>
             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
               Vi er i uke {weekNow} ({yearNow})

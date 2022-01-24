@@ -25,13 +25,13 @@ const UserJobCard = ({ userJob, yearNow, weekNow }) => {
     <>
       <Card variant="outlined">
         <CardHeader
-          avatar={<Avatar src={userJob.user.image}>R</Avatar>}
+          avatar={<Avatar src={userJob.user?.image}></Avatar>}
           action={
             <IconButton aria-label="settings" disabled={true}>
               <MoreVert />
             </IconButton>
           }
-          title={userJob.user.name}
+          title={userJob.user ? userJob.user.name : "Ingen"}
           subheader={`Uke ${weekNow}, ${yearNow}`}
         />
         <CardContent>

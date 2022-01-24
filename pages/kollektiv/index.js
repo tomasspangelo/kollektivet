@@ -22,7 +22,7 @@ export default function Kollektiv() {
     if (kollektiv != result) {
       setKollektiv(result);
     }
-  }, [result]);
+  }, [result, kollektiv, setKollektiv]);
 
   const [open, setOpen] = React.useState(false);
 

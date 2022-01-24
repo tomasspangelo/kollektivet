@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import TodayIcon from "@material-ui/icons/Today";
 import PersonIcon from "@material-ui/icons/Person";
 import GroupIcon from "@material-ui/icons/Group";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles({
@@ -43,7 +43,7 @@ export default function BottomNav() {
     } else if (index === 4) {
       router.push("/profile");
     }
-  }, [index]);
+  }, [index, router]);
   return (
     <div
       style={{

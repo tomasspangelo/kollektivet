@@ -28,7 +28,7 @@ const CreateVaskeliste = ({ jobs, selected, setSelected, kollektiv }) => {
     }
     console.log(newSelected);
     setSelected(newSelected);
-  }, [jobs]);
+  }, [jobs, selected, setSelected]);
   return (
     <>
       <DialogContentText>
